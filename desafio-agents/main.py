@@ -4,8 +4,11 @@ import sys
 import os
 import re
 import math
+from dotenv import load_dotenv
 
 data_path = "desafio-agents/restaurantes.txt"
+
+load_dotenv()
 
 def fetch_restaurant_data(restaurant_name: str) -> Dict[str, List[str]]:
     restaurant_reviews_dict = {
@@ -23,7 +26,6 @@ def fetch_restaurant_data(restaurant_name: str) -> Dict[str, List[str]]:
 
 def calculate_overall_score(restaurant_name: str, food_scores: List[int], customer_service_scores: List[int]) -> Dict[str, float]:
     num_scores = len(food_scores)
-    
     final_sum = 0
 
     for i in num_scores:
