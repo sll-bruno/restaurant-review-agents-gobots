@@ -80,15 +80,9 @@ class ReviewAnalysisAgent:
             format_instructions=self.parser.get_format_instructions()
         )
         
-    def run_agent(self, reviews: dict[str, list[str]]) -> RestaurantScores:
+    def evaluate_reviews(self, reviews: dict[str, list[str]]) -> RestaurantScores:
         prompt = self.get_prompt(reviews)
         response = self.agent.invoke(prompt)
         
         return response
-    
-    
-resposta =  ReviewAnalysisAgent().run_agent({"Café do Ponto": ["Café de boa qualidade e doces satisfatórios. Atendimento satisfatório e rápido, com baristas atenciosos.", "Sempre um bom café e doces saborosos. Atendimento incrível, com baristas atenciosos e eficientes."]})   
-print(resposta.food_scores)
-print(resposta.customer_service_scores)
-print(type(resposta.food_scores[0]))
 

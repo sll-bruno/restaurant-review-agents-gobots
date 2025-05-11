@@ -58,7 +58,8 @@ class FetchDataAgent:
             tools=[self.tool_fetch_data],
             llm= self.fetch_data_agent,
             agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-            verbose=True
+            verbose=False,
+            handle_parsing_errors=True
         )
         
         self.parser = PydanticOutputParser(pydantic_object=RestaurantReviews)
@@ -92,11 +93,12 @@ class FetchDataAgent:
 
         )
     
-    def run_agent(self, query: str):
+    def fetch_data(self, query: str):
         """ Função responsável por executar o agente."""
 
         prompt = self.get_prompt(query)
         response = self.fetch_data_agent.invoke(prompt)
+        response = self.parser.parse(response["output"])
+        response = response.Avaliacoes
+        
         return response
-
-    
